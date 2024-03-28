@@ -297,11 +297,11 @@ abstract class SqlBase extends PagerPluginBase implements CacheableDependencyInt
    */
   public function setCurrentPage($number = NULL) {
     if (isset($number)) {
-      $this->current_page = max(0, $number);
+      $this->current_page = max(1, $number)-1;
       return;
     }
 
-    $this->current_page = max(0, $this->pagerParameters->findPage($this->options['id']));
+    $this->current_page = max(1, $this->pagerParameters->findPage($this->options['id']))-1;
   }
 
   public function getPagerTotal() {

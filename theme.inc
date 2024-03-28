@@ -1785,7 +1785,7 @@ function template_preprocess_pager(&$variables) {
   $pager_middle = ceil($quantity / 2);
   $current_page = $pager->getCurrentPage();
   // The current pager is the page we are currently paged to.
-  $pager_current = $current_page + 1;
+  $pager_current = $current_page;
   // The first pager is the first page listed by this pager piece (re quantity).
   $pager_first = $pager_current - $pager_middle + 1;
   // The last is the last page listed by this pager piece (re quantity).
@@ -1807,7 +1807,7 @@ function template_preprocess_pager(&$variables) {
   // End of generation loop preparation.
 
   // Create the "first" and "previous" links if we are not on the first page.
-  if ($current_page > 0) {
+  if ($current_page > 1) {
     $items['first'] = [];
     $items['first']['attributes'] = new Attribute();
     $options = [
@@ -1836,7 +1836,7 @@ function template_preprocess_pager(&$variables) {
   // Now generate the actual pager piece.
   for (; $i <= $pager_last && $i <= $pager_max; $i++) {
     $options = [
-      'query' => $pager_manager->getUpdatedParameters($parameters, $element, $i - 1),
+      'query' => $pager_manager->getUpdatedParameters($parameters, $element, $i),
     ];
     $items['pages'][$i]['href'] = Url::fromRoute($route_name, $route_parameters, $options)->toString();
     $items['pages'][$i]['attributes'] = new Attribute();
@@ -1851,7 +1851,7 @@ function template_preprocess_pager(&$variables) {
   }
 
   // Create the "next" and "last" links if we are not on the last page.
-  if ($current_page < ($pager_max - 1)) {
+  if ($current_page < ($pager_max)) {
     $items['next'] = [];
     $items['next']['attributes'] = new Attribute();
     $options = [
