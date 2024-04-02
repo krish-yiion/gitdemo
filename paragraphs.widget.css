@@ -151,6 +151,7 @@
   color: #777;
   font-size: 0.75em;
   line-height: 3.5em;
+  visibility: hidden;
 }
 
 @media (min-width: 768px) {
